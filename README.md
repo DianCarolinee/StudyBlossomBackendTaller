@@ -159,7 +159,7 @@ Este proyecto está bajo la Licencia MIT.
 
 ## 👥 Autores
 
-- Tu Nombre - [@tuusuario](https://github.com/tuusuario)
+- DIANA CHANTA
 
 ## 🙏 Agradecimientos
 
