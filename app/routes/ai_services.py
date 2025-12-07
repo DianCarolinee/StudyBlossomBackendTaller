@@ -17,6 +17,13 @@ async def generate_aida_engagement(
     """
     Genera contenido motivacional usando el modelo AIDA
     """
+    # 🔹 Validación para el test: topic vacío => 422
+    if not request.topic or not request.topic.strip():
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="El tema no puede estar vacío"
+        )
+
     try:
         content = await aida_service.generate_engagement(request.topic)
         return AidaEngagementResponse(**content)
@@ -35,6 +42,13 @@ async def generate_pomodoro_recommendations(
     """
     Genera recomendaciones de estudio para Pomodoro
     """
+    # 🔹 Igual validación para el test: topic vacío => 422
+    if not request.topic or not request.topic.strip():
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="El tema no puede estar vacío"
+        )
+
     try:
         recommendations = await pomodoro_service.generate_recommendations(request.topic)
         return PomodoroRecommendationsResponse(recommendations=recommendations)

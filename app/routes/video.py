@@ -85,6 +85,15 @@ def get_user_videos(
 
     return [EducationalVideoDBResponse.model_validate(v) for v in videos]
 
+@router.get("/test-connection")
+async def test_did_connection(
+        current_user: User = Depends(get_current_user)
+):
+    """
+    Prueba la conexión con D-ID
+    """
+    result = await video_service.test_connection()
+    return result
 
 @router.get("/{video_id}", response_model=EducationalVideoDBResponse)
 def get_video_by_id(
@@ -108,13 +117,3 @@ def get_video_by_id(
 
     return EducationalVideoDBResponse.model_validate(video)
 
-
-@router.get("/test-connection")
-async def test_did_connection(
-        current_user: User = Depends(get_current_user)
-):
-    """
-    Prueba la conexión con D-ID
-    """
-    result = await video_service.test_connection()
-    return result

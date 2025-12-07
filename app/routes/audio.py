@@ -23,6 +23,12 @@ async def generate_audio(
     """
     Genera audio a partir de texto usando TTS
     """
+    if not request.text or not request.text.strip():
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="El texto no puede estar vacío"
+        )
+
     try:
         audio_data_uri = await audio_service.generate_audio(request.text)
         return AudioGenerationResponse(media=audio_data_uri)

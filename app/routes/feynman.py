@@ -17,6 +17,8 @@ from app.models.user import User
 router = APIRouter()
 
 
+from fastapi import HTTPException, status
+
 @router.post("/explanation", response_model=FeynmanExplanationResponse)
 async def get_feynman_explanation(
         request: FeynmanExplanationRequest,
@@ -25,6 +27,12 @@ async def get_feynman_explanation(
     """
     Genera una explicación simple del tema (Paso 1 de Feynman)
     """
+    if not request.topic or not request.topic.strip():
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="El tema no puede estar vacío"
+        )
+
     try:
         explanation = await feynman_service.get_explanation(request.topic)
         return FeynmanExplanationResponse(explanation=explanation)
@@ -35,6 +43,7 @@ async def get_feynman_explanation(
         )
 
 
+
 @router.post("/analyze", response_model=FeynmanAnalysisResponse)
 async def analyze_feynman_explanation(
         request: FeynmanAnalysisRequest,
@@ -43,6 +52,19 @@ async def analyze_feynman_explanation(
     """
     Analiza la explicación del usuario (Paso 2 de Feynman)
     """
+    if not request.user_explanation or not request.user_explanation.strip():
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="La explicación del usuario no puede estar vacía"
+        )
+
+    # Validar topic también:
+    # if not request.topic or not request.topic.strip():
+    #     raise HTTPException(
+    #         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+    #         detail="El tema no puede estar vacío"
+    #     )
+
     try:
         analysis = await feynman_service.analyze_explanation(
             request.topic,

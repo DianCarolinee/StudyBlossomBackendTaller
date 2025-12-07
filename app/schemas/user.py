@@ -19,9 +19,9 @@ class UserCreate(UserBase):
         local_part = v.split('@')[0]
         domain = v.split('@')[1].lower()
 
-        # Mínimo 5 caracteres antes del @
-        if len(local_part) < 5:
-            raise ValueError('El email debe tener al menos 5 caracteres antes del @')
+        # # Mínimo 5 caracteres antes del @
+        # if len(local_part) < 5:
+        #     raise ValueError('El email debe tener al menos 5 caracteres antes del @')
 
         # Debe contener al menos una letra
         if not re.search(r'[a-zA-Z]', local_part):

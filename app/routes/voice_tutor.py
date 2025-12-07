@@ -27,6 +27,12 @@ async def ask_voice_tutor(
     """
     Hace una pregunta al tutor de voz
     """
+    if not request.user_question or not request.user_question.strip():
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="La pregunta del usuario no puede estar vacía"
+        )
+
     try:
         response = await voice_tutor_service.ask_tutor(
             topic=request.topic,
