@@ -85,10 +85,82 @@ La documentación interactiva estará disponible en:
 - ReDoc: `http://localhost:8000/redoc`
 
 ## 🧪 Testing
+### Pruebas específicas
 ```bash
-pytest
+# Un archivo específico
+pytest tests/test_auth.py -v
+
+# Una clase específica
+pytest tests/test_auth.py::TestAuth -v
+
+# Un test específico
+pytest tests/test_auth.py::TestAuth::test_register_success -v
 ```
 
+### Con cobertura
+```bash
+pytest tests/ --cov=app --cov-report=html
+```
+
+El reporte HTML se genera en `htmlcov/index.html`
+
+## 📊 Cobertura Esperada
+
+Las pruebas cubren:
+
+- ✅ **Autenticación (test_auth.py)**
+  - Registro de usuarios
+  - Login y validación de tokens
+  - Verificación de permisos
+
+- ✅ **Metas de Estudio (test_study_goals.py)**
+  - CRUD completo
+  - Validación de campos
+  - Filtros y paginación
+
+- ✅ **Flashcards (test_flashcards.py)**
+  - Generación con IA
+  - Creación manual
+  - Sistema de revisión
+  - Filtrado por tema
+
+- ✅ **Quizzes (test_quiz.py)**
+  - Generación desde flashcards
+  - Sesiones de quiz
+  - Sistema de respuestas
+  - Cálculo de puntajes
+
+- ✅ **Estadísticas (test_user_stats.py)**
+  - Seguimiento de XP
+  - Sistema de niveles
+  - Rachas de estudio
+  - Tiempo de estudio
+
+- ✅ **Servicios IA (test_ai_services.py)**
+  - Contenido AIDA
+  - Recomendaciones Pomodoro
+
+- ✅ **Mapas Conceptuales (test_concept_map.py)**
+  - Generación con Mermaid
+  - Sanitización de caracteres
+  - Almacenamiento
+
+- ✅ **Técnica Feynman (test_feynman.py)**
+  - Explicaciones simples
+  - Análisis de comprensión
+  - Feedback personalizado
+
+- ✅ **Audio/Video (test_audio_video.py)**
+  - Generación de audio TTS
+  - Videos educativos con D-ID
+  - Almacenamiento y recuperación
+
+- ✅ **Tutor de Voz (test_voice_tutor.py)**
+  - Conversaciones interactivas
+  - Historial de mensajes
+  - Sugerencias de seguimiento
+```
+```
 ## 📁 Estructura del Proyecto
 ```
 backend/
